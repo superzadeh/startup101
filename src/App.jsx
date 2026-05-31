@@ -160,6 +160,7 @@ const colorMap = {
 };
 
 const navItems = [
+  { id: 'why', label: 'Why' },
   { id: 'spectrum', label: 'Spectrum' },
   { id: 'stages', label: 'Stages' },
   { id: 'compare', label: 'Compare' },
@@ -231,14 +232,14 @@ export default function App() {
         <div className="relative mx-auto max-w-6xl px-4 py-20 md:py-28">
           <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-zinc-800 bg-zinc-900/50 px-3 py-1 text-xs text-zinc-400">
             <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-            A guide for engineers thinking about joining a startup
+            Written for engineers who think &lsquo;startup&rsquo; means one thing
           </div>
           <h1 className="max-w-3xl text-4xl font-bold leading-[1.1] tracking-tight md:text-6xl">
             Not all startups are the same.<br />
             <span className="bg-gradient-to-r from-amber-300 via-rose-400 to-slate-400 bg-clip-text text-transparent">Stop treating them like they are.</span>
           </h1>
           <p className="mt-6 max-w-2xl text-lg leading-relaxed text-zinc-400">
-            A pre-seed company and a Series C company share almost nothing in common. Different work, different odds, different equity, different career velocity. This guide tells you what to expect at each stage, so you can pick the trade-offs that actually fit you.
+            I have spent a career watching engineers &mdash; peers, and people I have managed &mdash; chase &lsquo;a startup&rsquo; as if it meant one thing: the opposite of corporate. They joined the wrong stage, or the stage changed under them, and they got burned. But a pre-seed and a Series C share almost nothing: different work, different odds, different equity, different career velocity. This is the map I wish they&rsquo;d had &mdash; so you can pick the trade-offs on purpose.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <button onClick={() => scroll('spectrum')} className="inline-flex items-center gap-2 rounded-lg bg-zinc-100 px-4 py-2.5 text-sm font-medium text-zinc-950 transition hover:bg-white">
@@ -248,9 +249,51 @@ export default function App() {
               <Calculator className="h-4 w-4" /> Run the equity math
             </button>
           </div>
-          <button onClick={() => scroll('spectrum')} className="mt-16 flex items-center gap-1 text-xs text-zinc-500 transition hover:text-zinc-300">
+          <button onClick={() => scroll('why')} className="mt-16 flex items-center gap-1 text-xs text-zinc-500 transition hover:text-zinc-300">
             <ChevronDown className="h-3 w-3 animate-bounce" /> Scroll
           </button>
+        </div>
+      </section>
+
+      {/* Why */}
+      <section id="why" className="border-b border-zinc-800/80 py-20">
+        <div className="mx-auto max-w-6xl px-4">
+          <div className="mb-2 text-xs font-semibold uppercase tracking-wider text-zinc-500">00 / Why this exists</div>
+          <h2 className="text-3xl font-bold tracking-tight md:text-4xl">I watched too many good engineers pick the wrong startup</h2>
+          <div className="mt-6 max-w-3xl space-y-4 text-lg leading-relaxed text-zinc-300">
+            <p>Over my career I have worked with a lot of engineers who wanted to &ldquo;join a startup&rdquo; &mdash; peers, and people I managed. Most of them had no real picture of what that meant beyond one thing: <span className="font-medium text-zinc-100">the opposite of corporate.</span></p>
+            <p>So they got burned. They joined the wrong stage for what they actually wanted out of work. Or the company grew into the next stage, the expectations shifted underneath them, and the things that made them great at seed suddenly did not fit at Series B. They got frustrated, they struggled to perform, and they left &mdash; usually for another startup, where the same thing happened again.</p>
+            <p>The root cause was almost always the same: they treated every startup as the same thing. They would put a Stripe or a Clipboard Health in the same basket as two founders eating instant noodles at pre-seed. Those are not the same job. They are barely the same universe.</p>
+          </div>
+
+          <div className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-3">
+            {[
+              { icon: Target, title: 'They picked the wrong stage', body: 'They wanted stability and equity as a bonus, then joined a pre-seed where the only certainty is that most of it fails. Or they wanted to build from zero and own everything, then joined a 2,000-person "startup" where every interesting problem already has a team.' },
+              { icon: Repeat, title: 'The stage changed under them', body: 'They thrived in seed-stage chaos, then watched process, specialization, and headcount arrive at Series B. The job that fit them perfectly turned into a different job. Instead of adapting, they got frustrated, underperformed, and bounced to the next one.' },
+              { icon: Layers, title: 'They treated "startup" as one thing', body: 'A pre-seed and a Series C share a label and almost nothing else: different work, different odds, different equity, different pace of growth. Lumping them together is how smart people walk into a stage that was never going to suit them.' },
+            ].map((c) => {
+              const Icon = c.icon;
+              return (
+                <div key={c.title} className="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-amber-400 to-rose-500 text-zinc-950">
+                    <Icon className="h-5 w-5" />
+                  </div>
+                  <div className="mt-4 text-base font-semibold text-zinc-100">{c.title}</div>
+                  <p className="mt-2 text-sm leading-relaxed text-zinc-400">{c.body}</p>
+                </div>
+              );
+            })}
+          </div>
+
+          <div className="mt-6 rounded-xl border border-amber-500/30 bg-amber-500/5 p-5">
+            <div className="flex items-start gap-3">
+              <Sparkles className="mt-0.5 h-5 w-5 shrink-0 text-amber-400" />
+              <div>
+                <div className="text-sm font-semibold text-zinc-100">What this guide is</div>
+                <p className="mt-1.5 text-sm leading-relaxed text-zinc-400">The mental model I wish all of them had walked in with. What each stage actually demands, what it pays, what it does to your life, and how fast it grows your career &mdash; so you can choose the trade-offs deliberately instead of finding out the hard way.</p>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
