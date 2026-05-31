@@ -16,14 +16,14 @@ const stages = [
     runway: 'Months',
     investor: 'Angels, rarely VCs',
     valuation: '$1M to $5M',
-    multiplier: '5x',
-    multiplierLabel: '~5 career years per calendar year',
+    multiplier: '10x',
+    multiplierLabel: '~10 career years per calendar year',
     summary: 'Founders, a problem, and a Google Sheet.',
     company: 'No real product. Prototypes in Sheets, Airtable, or low-code. The founders understand the customer problem deeply, and that is most of what exists.',
     engineering: 'Skip tests. Ship the hackiest thing that proves the idea. Code is disposable. Optimize for learning speed, not durability.',
     comp: 'There may be a salary, but it will be very low. Equity is your only real upside, and the base rate of failure is brutal.',
     life: 'Everything, all the time. You are the company.',
-    careerGrowth: 'The most concentrated learning of your career. You touch every layer of building a company, make decisions that actually matter, and do it under real constraints. One year here teaches you what five years at a mature company teaches. The cost is income and stability, both of which you give up almost entirely.',
+    careerGrowth: 'The most concentrated learning of your career. You touch every layer of building a company, make decisions that actually matter, and do it under real constraints. One year here teaches you what ten years at a mature company teaches. The cost is income and stability, both of which you give up almost entirely.',
   },
   {
     id: 'seed',
@@ -39,8 +39,8 @@ const stages = [
     runway: '~1 year',
     investor: 'Early-stage VCs',
     valuation: '$5M to $30M',
-    multiplier: '4x',
-    multiplierLabel: '~4 career years per calendar year',
+    multiplier: '10x',
+    multiplierLabel: '~10 career years per calendar year',
     summary: 'Customers use the product. PMF is the open question.',
     company: 'A hacky product exists. Customers use it and get value. There is an idea for how to monetize. Product-market fit is not proven yet, and that is the entire job.',
     engineering: 'Green field. You do everything: devops, backend, frontend, security, whatever ships. Take on as much technical debt as you can stand. Speed beats cleanliness.',
@@ -70,8 +70,8 @@ const stages = [
     runway: '1 to 2 years',
     investor: 'VCs',
     valuation: '$100M to $500M',
-    multiplier: '3x',
-    multiplierLabel: '~3 career years per calendar year',
+    multiplier: '5x',
+    multiplierLabel: '~5 career years per calendar year',
     summary: 'PMF is proved. Scale or die.',
     company: 'PMF is proved. Valuation jumps to $100M to $500M. Now it is all about scaling fast: customers, revenue, headcount, infrastructure.',
     engineering: 'Clean up the debt from the seed stage. Hire fast. Delegate. Scale the product beyond what looked possible six months ago. A lot of leadership is figuring out how to ramp new engineers in weeks.',
@@ -93,8 +93,8 @@ const stages = [
     runway: '2+ years',
     investor: 'Growth-stage VCs',
     valuation: '$500M to $2B',
-    multiplier: '2x',
-    multiplierLabel: '~2 career years per calendar year',
+    multiplier: '3x',
+    multiplierLabel: '~3 career years per calendar year',
     summary: 'Expanding within the same market.',
     company: 'Expanding. Going broader within the existing market. The goal is to grow market size and entrench. If your market is $10B and you hold 5%, that is $500M in revenue at full capture.',
     engineering: 'Specialization kicks in: platform teams, infra teams, product teams. Process matters more. Architecture decisions outlive the people who made them.',
@@ -116,8 +116,8 @@ const stages = [
     runway: '3+ years or profitable',
     investor: 'Late-stage VCs, PE, crossover',
     valuation: '$1B+',
-    multiplier: '1.5x',
-    multiplierLabel: '~1.5 career years per calendar year',
+    multiplier: '2x',
+    multiplierLabel: '~2 career years per calendar year',
     summary: 'Expanding into new verticals and adjacent markets.',
     company: 'Expanding into new verticals or adjacent markets. The goal is to grow the total market the company plays in. Take that same 5% share, but apply it to a $50B market, and you get $2.5B in revenue.',
     engineering: 'Mature engineering org. Strong specialization, internal platforms, formal career ladders. Big system migrations and reliability work dominate.',
@@ -511,7 +511,7 @@ export default function App() {
               <Gauge className="mt-0.5 h-5 w-5 shrink-0 text-amber-400" />
               <div>
                 <div className="text-sm font-semibold text-zinc-100">The career compounding argument</div>
-                <p className="mt-1.5 text-sm leading-relaxed text-zinc-400">A year at a pre-seed can be worth five at a mature company. Two or three years of compressed learning early in your career puts you ahead of peers who skipped the pain. Once you have the skills (and the comp that comes with them), big tech and corporate make sense as a capstone. Doing it in reverse is the expensive path.</p>
+                <p className="mt-1.5 text-sm leading-relaxed text-zinc-400">A year at a pre-seed can be worth ten at a mature company. Two or three years of compressed learning early in your career puts you ahead of peers who skipped the pain. Once you have the skills (and the comp that comes with them), big tech and corporate make sense as a capstone. Doing it in reverse is the expensive path.</p>
               </div>
             </div>
           </div>
