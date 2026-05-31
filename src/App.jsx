@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Building2, Users, Percent, Clock, Target, Briefcase, Calculator, Search, Layers, AlertCircle, Wrench, Zap, Rocket, TrendingUp, Anchor, ArrowRight, Sparkles, ChevronDown, Gauge, Combine, Repeat, Trophy } from 'lucide-react';
+import { Building2, Users, Percent, Clock, Target, Briefcase, Search, Layers, AlertCircle, Wrench, Zap, Rocket, TrendingUp, Anchor, ArrowRight, Sparkles, ChevronDown, Gauge, Combine, Repeat } from 'lucide-react';
 
 const stages = [
   {
@@ -166,7 +166,6 @@ const navItems = [
   { id: 'compare', label: 'Compare' },
   { id: 'equity', label: 'Equity' },
   { id: 'liquidity', label: 'Cashing in' },
-  { id: 'calc', label: 'Calculator' },
   { id: 'market', label: 'Market' },
   { id: 'vcs', label: 'VCs' },
   { id: 'research', label: 'Research' },
@@ -245,8 +244,8 @@ export default function App() {
             <button onClick={() => scroll('spectrum')} className="inline-flex items-center gap-2 rounded-lg bg-zinc-100 px-4 py-2.5 text-sm font-medium text-zinc-950 transition hover:bg-white">
               See the spectrum <ArrowRight className="h-4 w-4" />
             </button>
-            <button onClick={() => scroll('calc')} className="inline-flex items-center gap-2 rounded-lg border border-zinc-700 bg-zinc-900/50 px-4 py-2.5 text-sm font-medium text-zinc-100 transition hover:bg-zinc-800">
-              <Calculator className="h-4 w-4" /> Run the equity math
+            <button onClick={() => scroll('equity')} className="inline-flex items-center gap-2 rounded-lg border border-zinc-700 bg-zinc-900/50 px-4 py-2.5 text-sm font-medium text-zinc-100 transition hover:bg-zinc-800">
+              <Percent className="h-4 w-4" /> How equity works
             </button>
           </div>
           <button onClick={() => scroll('why')} className="mt-16 flex items-center gap-1 text-xs text-zinc-500 transition hover:text-zinc-300">
@@ -588,6 +587,17 @@ export default function App() {
               ))}
             </div>
           </div>
+
+          <div className="mt-8 rounded-xl border border-amber-500/30 bg-amber-500/5 p-5">
+            <div className="flex items-start gap-3">
+              <AlertCircle className="mt-0.5 h-5 w-5 shrink-0 text-amber-400" />
+              <div>
+                <div className="text-sm font-semibold text-zinc-100">Leaving forces a bet you have to fund yourself</div>
+                <p className="mt-1.5 text-sm leading-relaxed text-zinc-400">Vested options are not shares yet. The day you leave &mdash; whether you quit or get terminated &mdash; a clock starts. You usually have around 90 days to <span className="text-zinc-200">exercise</span>: pay the strike cost out of your own pocket to actually buy the shares. If exercising your vested options costs $10k, you have to put up that $10k before the window closes, or you forfeit them.</p>
+                <p className="mt-2 text-sm leading-relaxed text-zinc-400">And that $10k buys nothing you can spend yet. Those shares only turn into money at a liquidity event &mdash; an IPO or an acquisition &mdash; which might be years away, or might never come at all. At Series A and earlier, the most likely outcome is that the company fails and the shares end up worth zero. So leaving forces you to bet real cash today on an uncertain payout, on a timeline you do not control.</p>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -650,88 +660,10 @@ export default function App() {
         </div>
       </section>
 
-      {/* Calculator */}
-      <section id="calc" className="border-b border-zinc-800/80 py-20">
-        <div className="mx-auto max-w-6xl px-4">
-          <div className="mb-2 text-xs font-semibold uppercase tracking-wider text-zinc-500">06 / Run the math</div>
-          <h2 className="text-3xl font-bold tracking-tight md:text-4xl">What is your equity actually worth?</h2>
-          <p className="mt-4 max-w-2xl text-zinc-400">Plug in the numbers from your offer. The current valuation is what the company is worth right now (ask, or estimate from the round). The exit valuation is your guess at the outcome.</p>
-
-          <div className="mt-10 grid grid-cols-1 gap-6 lg:grid-cols-5">
-            {/* Inputs */}
-            <div className="space-y-5 rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6 lg:col-span-2">
-              <div>
-                <label className="text-xs font-medium uppercase tracking-wider text-zinc-400">Shares granted</label>
-                <input type="number" value={shares} onChange={(e) => setShares(+e.target.value || 0)} className="mt-2 w-full rounded-lg border border-zinc-700 bg-zinc-950 px-3 py-2 text-zinc-100 outline-none transition focus:border-amber-500" />
-              </div>
-              <div>
-                <label className="text-xs font-medium uppercase tracking-wider text-zinc-400">Strike price per share ($)</label>
-                <input type="number" step="0.01" value={strike} onChange={(e) => setStrike(+e.target.value || 0)} className="mt-2 w-full rounded-lg border border-zinc-700 bg-zinc-950 px-3 py-2 text-zinc-100 outline-none transition focus:border-amber-500" />
-                <div className="mt-1 text-xs text-zinc-500">Package value today: {fmt(shares * strike)}</div>
-              </div>
-              <div>
-                <label className="text-xs font-medium uppercase tracking-wider text-zinc-400">Current valuation ($M)</label>
-                <input type="number" value={currVal} onChange={(e) => setCurrVal(+e.target.value || 0)} className="mt-2 w-full rounded-lg border border-zinc-700 bg-zinc-950 px-3 py-2 text-zinc-100 outline-none transition focus:border-amber-500" />
-              </div>
-              <div>
-                <label className="text-xs font-medium uppercase tracking-wider text-zinc-400">Exit valuation ($M)</label>
-                <input type="number" value={exitVal} onChange={(e) => setExitVal(+e.target.value || 0)} className="mt-2 w-full rounded-lg border border-zinc-700 bg-zinc-950 px-3 py-2 text-zinc-100 outline-none transition focus:border-amber-500" />
-              </div>
-              <div>
-                <label className="text-xs font-medium uppercase tracking-wider text-zinc-400">Tax rate ({tax}%)</label>
-                <input type="range" min="0" max="60" value={tax} onChange={(e) => setTax(+e.target.value)} className="mt-2 w-full accent-amber-500" />
-              </div>
-
-              <div className="border-t border-zinc-800 pt-4">
-                <div className="mb-2 text-xs font-medium uppercase tracking-wider text-zinc-500">Try a preset</div>
-                <div className="space-y-1.5">
-                  {presets.map((p) => (
-                    <button key={p.label} onClick={() => { setShares(p.shares); setStrike(p.strike); setCurrVal(p.curr); setExitVal(p.exit); }} className="block w-full rounded-lg border border-zinc-800 bg-zinc-950 px-3 py-2 text-left text-xs text-zinc-300 transition hover:border-zinc-700 hover:bg-zinc-900">
-                      {p.label}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* Output */}
-            <div className="rounded-2xl border border-zinc-800 bg-gradient-to-br from-zinc-900/60 to-zinc-950 p-6 lg:col-span-3">
-              <div className="mb-6 flex items-baseline justify-between">
-                <div className="text-xs uppercase tracking-wider text-zinc-500">Your take-home at exit</div>
-                <div className="text-xs text-zinc-500">{multiple.toFixed(1)}x growth from now</div>
-              </div>
-              <div className="text-5xl font-bold tracking-tight md:text-6xl">
-                <span className="bg-gradient-to-r from-amber-300 to-rose-400 bg-clip-text text-transparent">{fmt(afterTax)}</span>
-              </div>
-              <div className="mt-2 text-sm text-zinc-400">after exercise cost and {tax}% taxes</div>
-
-              <div className="mt-8 space-y-3">
-                {[
-                  { label: 'Share price at exit', val: '$' + sharePriceExit.toFixed(2), tone: 'text-zinc-300' },
-                  { label: 'Gross value at exit', val: fmt(gross), tone: 'text-zinc-300' },
-                  { label: 'Cost to exercise', val: '- ' + fmt(exerciseCost), tone: 'text-rose-400' },
-                  { label: 'Taxes', val: '- ' + fmt(afterExercise * (tax / 100)), tone: 'text-rose-400' },
-                  { label: 'Net to you', val: fmt(afterTax), tone: 'text-amber-300 font-semibold' },
-                ].map((row, i, arr) => (
-                  <div key={row.label} className={`flex items-center justify-between ${i === arr.length - 1 ? 'border-t border-zinc-800 pt-3' : ''}`}>
-                    <div className="text-sm text-zinc-400">{row.label}</div>
-                    <div className={`font-mono text-sm tabular-nums ${row.tone}`}>{row.val}</div>
-                  </div>
-                ))}
-              </div>
-
-              <div className="mt-6 rounded-lg border border-zinc-800 bg-zinc-900/40 p-4 text-xs leading-relaxed text-zinc-400">
-                <span className="font-semibold text-zinc-200">Caveat.</span> This ignores dilution from future rounds, liquidation preferences, AMT on ISOs, and whether your specific jurisdiction taxes options on exercise or sale. Real outcomes are usually worse than this model. Talk to a tax advisor before any large decision.
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Market */}
       <section id="market" className="border-b border-zinc-800/80 py-20">
         <div className="mx-auto max-w-6xl px-4">
-          <div className="mb-2 text-xs font-semibold uppercase tracking-wider text-zinc-500">07 / Market sizing</div>
+          <div className="mb-2 text-xs font-semibold uppercase tracking-wider text-zinc-500">06 / Market sizing</div>
           <h2 className="text-3xl font-bold tracking-tight md:text-4xl">TAM, SAM, SOM</h2>
           <p className="mt-4 max-w-2xl text-zinc-400">Three layers of market sizing that VCs and founders use to argue a company is worth funding. Knowing the language helps you read a pitch deck and ask sharper questions.</p>
 
@@ -774,7 +706,7 @@ export default function App() {
       {/* VCs */}
       <section id="vcs" className="border-b border-zinc-800/80 py-20">
         <div className="mx-auto max-w-6xl px-4">
-          <div className="mb-2 text-xs font-semibold uppercase tracking-wider text-zinc-500">08 / How VCs work</div>
+          <div className="mb-2 text-xs font-semibold uppercase tracking-wider text-zinc-500">07 / How VCs work</div>
           <h2 className="text-3xl font-bold tracking-tight md:text-4xl">VCs are middlemen with deadlines</h2>
           <p className="mt-4 max-w-3xl text-zinc-400">VCs raise money from limited partners (LPs), invest it in startups, and return it. The fund has a fixed life, usually around 10 years. That deadline shapes every decision they make, including the pressure they put on your CEO. It is why startups are biased toward swings for the fences instead of steady growth.</p>
 
@@ -807,7 +739,7 @@ export default function App() {
       {/* Research */}
       <section id="research" className="border-b border-zinc-800/80 py-20">
         <div className="mx-auto max-w-6xl px-4">
-          <div className="mb-2 text-xs font-semibold uppercase tracking-wider text-zinc-500">09 / Before you sign</div>
+          <div className="mb-2 text-xs font-semibold uppercase tracking-wider text-zinc-500">08 / Before you sign</div>
           <h2 className="text-3xl font-bold tracking-tight md:text-4xl">Where to actually research a company</h2>
           <p className="mt-4 max-w-2xl text-zinc-400">Recruiters present a polished story. Your job is to figure out which parts hold up. Four places to look first.</p>
 
